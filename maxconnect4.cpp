@@ -18,11 +18,12 @@ public:
     int player2Score;
     int pieceCount;
     int depth;
-    FILE *gameFile;
+    long * gameData;
 
     gameStatus()
     {
         gameData = new int[42];
+
         gameBoard[0] = &(gameData[0]);
         gameBoard[1] = &(gameData[7]);
         gameBoard[2] = &(gameData[14]);
@@ -88,6 +89,7 @@ void printGameBoardToFile(gameStatus &currentGame)
 int playPiece(int column, gameStatus &currentGame)
 {
     // if column full, return 0
+
     if(currentGame.gameBoard[0][column] != 0)
     {
         return 0;
@@ -108,6 +110,7 @@ int playPiece(int column, gameStatus &currentGame)
     return 0;
 }
 
+<<<<<<< HEAD
 int minimax(int * gameBoard, int depth, bool isMaximizingPlayer ){
     if (isMaximizingPlayer){
         int bestVal = -INFINITY;
@@ -118,6 +121,7 @@ int minimax(int * gameBoard, int depth, bool isMaximizingPlayer ){
 
 // The AI section.  Currently plays randomly.
 //TODO
+
 void aiPlay(gameStatus &currentGame)
 {
     int randColumn = (int) rand() % 7;
@@ -130,7 +134,8 @@ void aiPlay(gameStatus &currentGame)
     else
     {
         printf("\n\nmove %i: Player %i, column %i\n",
-               currentGame.pieceCount, currentGame.currentTurn, randColumn+1);
+
+        currentGame.pieceCount, currentGame.currentTurn, randColumn+1);
         if(currentGame.currentTurn == 1)
             currentGame.currentTurn = 2;
         else if (currentGame.currentTurn == 2)
@@ -396,8 +401,6 @@ int main(int argc, char ** argv)
     currentGame.depth = atoi(depth);
 
     printf("\nMaxConnect-4 game\n");
-
-
 
     currentGame.gameFile = fopen(input, "r");
     printf("game state before move:\n");
