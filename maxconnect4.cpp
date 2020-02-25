@@ -17,6 +17,7 @@ public:
     int player1Score;
     int player2Score;
     int pieceCount;
+    bool isMaximizingPlayer;
     int depth;
     long * gameData;
 
@@ -110,7 +111,6 @@ int playPiece(int column, gameStatus &currentGame)
     return 0;
 }
 
-<<<<<<< HEAD
 int minimax(int * gameBoard, int depth, bool isMaximizingPlayer ){
     if (isMaximizingPlayer){
         int bestVal = -INFINITY;
@@ -124,7 +124,8 @@ int minimax(int * gameBoard, int depth, bool isMaximizingPlayer ){
 
 void aiPlay(gameStatus &currentGame)
 {
-    int randColumn = (int) rand() % 7;
+    //int randColumn = (int) rand() % 7;
+    int column = minimax(currentGame, currentGame.depth, currentGame.isMaximizingPlayer)
     int result = 0;
     result = playPiece(randColumn, currentGame);
     if(result == 0)
@@ -364,6 +365,7 @@ int main(int argc, char ** argv)
 {
     char ** command_line = argv;
 
+
     if (argc != 5)
     {
         printf("Four command-line arguments are needed:\n");
@@ -372,13 +374,22 @@ int main(int argc, char ** argv)
 
         return 0;
     }
-
+    gameStatus currentGame;	 // Declare current game
     char * game_mode = command_line [1];
 
     if (strcmp(game_mode, "interactive") == 0)
     {
         printf("interactive mode is currently not implemented\n");
-        return 0;
+        if (strcmp(command_line[3], "computer-next")){
+        	currentGame.isMaximizingPlayer = TRUE;
+        } else if (strcmp(command_line[3], "human-next")){
+        	currentGame.isMaximizingPlayer = FALSE;
+        } else {
+        	printf("Usage: %s interactive [input_file] [computer-next/human-next] [depth]\n", command_line [0]);
+        	return 0;
+        }
+        return 0; //TODO: remove when interactive mode is ready 
+
     }
     else if (strcmp (game_mode, "one-move") != 0)
     {
@@ -392,7 +403,7 @@ int main(int argc, char ** argv)
     char * output = command_line [3];
     char *  depth = command_line [4];
 
-    gameStatus currentGame;	 // Declare current game
+    
 
     if (atoi(depth) > 41){
         printf("Please enter a valid depth\n");
