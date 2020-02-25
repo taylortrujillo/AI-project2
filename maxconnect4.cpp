@@ -110,7 +110,11 @@ int playPiece(int column, gameStatus &currentGame)
     }
     return 0;
 }
-
+//pass the gameboard in by reference so that it is not altered. Then pass in the temporary
+//gameboard so that the next call can see the potential state of the board. Recursively
+//call this until we get to the depth that we want. For each potential board, we need to get 
+//the gained utility at that potential board. Compare the utilities so that we get the move
+//with the most utility
 int minimax(int * gameBoard, int depth, bool isMaximizingPlayer ){
     if (isMaximizingPlayer){
         int bestVal = -INFINITY;
