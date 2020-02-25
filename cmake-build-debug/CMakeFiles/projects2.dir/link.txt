@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/projects2.dir/maxconnect4.cpp.o  -o projects2 
